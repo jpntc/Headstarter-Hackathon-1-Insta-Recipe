@@ -22,6 +22,12 @@
     },
     "web": {
       "favicon": ""
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "020e859d-e8df-4c3d-95ad-3e1f6e6e5b2b"
+      }
+    },
+    "owner": "jpntc"
   }
 }
