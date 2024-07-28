@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Button, TextInput, View, Text, Alert } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import axios from "axios";
 
-function Form() {
+function Home() {
   const [input, setInput] = useState("");
   const [ingredients, setIngredients] = useState([]);
 
@@ -41,7 +43,7 @@ function Form() {
   }
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>
         Ingredients:
         {ingredients.map((ingredient) => {
@@ -57,8 +59,13 @@ function Form() {
       ></TextInput>
       <Button onPress={handlePress} title="Enter Ingredient" />
       <Button onPress={passIngredients} title="Generate Recipe" />
-    </View>
+    </SafeAreaView>
   );
 }
 
-export default Form;
+
+const styles = StyleSheet.create({
+  
+})
+
+export default Home;
