@@ -19,7 +19,7 @@ export default function App() {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name="LogIn" component={LogIn} />
-          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Register" component={Register}/>
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Favorites" component = {Favorites}/>
         </Stack.Navigator>

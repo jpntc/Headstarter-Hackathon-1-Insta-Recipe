@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { Button, TextInput, View, Text, Alert, StyleSheet } from "react-native";
+import {
+  Button,
+  TextInput,
+  View,
+  Text,
+  Alert,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
-
+import axios from "axios"
 function Home() {
   const [input, setInput] = useState("");
   const [ingredients, setIngredients] = useState([]);
@@ -43,29 +51,91 @@ function Home() {
   }
 
   return (
-    <SafeAreaView>
-      <Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Text>Nav</Text>
+        <Text>User Profile</Text>
+      </View>
+      {/* <Text>
         Ingredients:
         {ingredients.map((ingredient) => {
           return <Text>{ingredient}, </Text>;
         })}
-      </Text>
-      <TextInput
-        //Temporary styling to define text area
-        style={{ borderColor: "gray", borderWidth: 1, height: 50 }}
-        placeholder="Enter Ingredients"
-        defaultValue={input}
-        onChangeText={handleChange}
-      ></TextInput>
-      <Button onPress={handlePress} title="Enter Ingredient" />
-      <Button onPress={passIngredients} title="Generate Recipe" />
+      </Text> */}
+      <View style={styles.pane}>
+        <View style={styles.resultsPane}></View>
+        <View style={styles.inputPane}>
+          <TextInput
+            //Temporary styling to define text area
+            style={{
+              width:"80%",
+              backgroundColor: "#fff",
+              borderRadius: 10,
+              borderColor: "gray",
+              borderWidth: 1,
+              height: 50,
+            }}
+            placeholder="Enter Ingredients"
+            defaultValue={input}
+            onChangeText={handleChange}
+          ></TextInput>
+          <TouchableOpacity
+            onPress={handlePress}
+            title="Register"
+            style={styles.button}
+          >
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </SafeAreaView>
   );
 }
 
 
 const styles = StyleSheet.create({
-  
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#f5f5dc",
+  },
+  header: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 6,
+    marginBottom: 10,
+  },
+  pane: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: "#EDEDED",
+    paddingBottom: 10,
+    margin: 20,
+    paddingHorizontal: 20,
+  },
+  resultsPane: {
+    flex: 1,
+    padding: 20,
+    backgroundColor:"#fff",
+    marginVertical: 10,
+
+  },
+  inputPane: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignContent:"center",
+
+    
+  },
+  button: {
+    padding: 2,
+    borderRadius: 10,
+    justifyContent: "center",
+    backgroundColor: "#32B001",
+  },
+});
 
 export default Home;

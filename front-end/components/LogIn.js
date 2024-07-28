@@ -8,7 +8,7 @@ import {
   StatusBar,
   TextInput,
   TouchableOpacity,
-  
+  Alert,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -23,16 +23,27 @@ const LogIn = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword ] = useState("");
 
-  const login = ()=>{
-    const credentials = {"email": email,
-      "password": password
+  const handleLogIn = ()=>{
+    //Updates state of user after each input. Completed fields are sent to backend if they pass all catch statements in handleRegister().
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+    if (reg.test(email) === false) {
+      Alert.alert(
+        "Invalid Email",
+        "Please make sure you have entered a valid email address"
+      );
+      return;
     }
-    const request = ""
+    if (password == "") {
+      Alert.alert("No Password", "Please enter your password");
+      return;
+    }
+
+    const credentials = { email: email, password: password };
+    const request = "";
     response = findUser(credentials);
-    navigator.navigate("Home")
-   
-    }
-  const register = ()=>{
+    navigator.navigate("Home");
+  }
+  const handleRegister = ()=>{
     navigator.navigate("Register");
   }
 
@@ -61,8 +72,6 @@ const LogIn = () => {
             style={styles.input}
             placeholder="Email"
             placeholderTextColor="#ccc"
-            keyboardType="email-address"
-            autoCapitalize="none"
             autoCorrect={false}
             onChangeText={(email) => {setEmail(email)}}
           />
@@ -71,16 +80,14 @@ const LogIn = () => {
             placeholder="Password"
             placeholderTextColor="#ccc"
             secureTextEntry={true}
-            autoCapitalize="none"
-            autoCorrect={false}
             onChangeText={(password) => {setPassword(password)}}
           />
-          <TouchableOpacity style={styles.button} onPress={login}>
+          <TouchableOpacity style={styles.button} onPress={handleLogIn}>
             <Text style={styles.buttonText}>Log In</Text>
           </TouchableOpacity>
           <View style={styles.signUp}>
             <Text style={styles.signUpText}>Or</Text>
-            <TouchableOpacity style={styles.signUpButton} onPress ={register}>
+            <TouchableOpacity style={styles.signUpButton} onPress ={handleRegister}>
             <Text style={styles.signUpButton}>Sign Up</Text>
             </TouchableOpacity>
           </View>
@@ -100,6 +107,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   banner: {
+    width:"80%",
     justifyContent: "center",
     alignItems: "center",
     padding: 10,
@@ -119,8 +127,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   motto: {
-    fontSize: 20,
-
+    fontSize: 18,
     color: "#32B001",
     marginTop: 5,
   },
@@ -132,7 +139,7 @@ const styles = StyleSheet.create({
     marginBottom: 60,
   },
   input: {
-    width: "100%",
+    width: "80%",
     height: 50,
     backgroundColor: "#fff",
     borderRadius: 5,
@@ -144,7 +151,7 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 50,
     backgroundColor: "#f5f5dc",
-    borderRadius: 100,
+    borderRadius: 80,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 10,
