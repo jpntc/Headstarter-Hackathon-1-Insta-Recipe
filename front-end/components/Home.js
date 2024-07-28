@@ -32,7 +32,8 @@ function Home() {
   //Passes ingredients array to backend when "Generate Recipe" button is pressed
   async function passIngredients() {
     try {
-      // const response = await axios.prototype("Backend Route", { ingredients });
+
+      const response = await axios.post("Backend Route", { ingredients });
       Alert("Success", "Ingredients passed successfully! Generating recipe...");
     } catch (error) {
       Alert.alert("Error", "Failed to send over ingredients!");
