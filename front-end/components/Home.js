@@ -8,18 +8,20 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-  ScrollView
+  ScrollView,
 } from "react-native";
+
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import axios from "axios";
 
 function Home() {
+  const [gptResponse, setGptResponse] = useState("");
   const [input, setInput] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
-  
-  const pfp = require("../assets/images/pfp.png")
+
+  const pfp = require("../assets/images/pfp.png");
 
   // Updates state of ingredients array when the "Enter Ingredient" button is pressed
   function handlePress() {
@@ -35,6 +37,7 @@ function Home() {
       return [...prevIngredients, input];
     });
     setInput("");
+    passIngredients();
   }
 
   // Updates state of input with each text input
@@ -46,11 +49,11 @@ function Home() {
   // Passes ingredients array to backend when "Generate Recipe" button is pressed
   async function passIngredients() {
     try {
-      const response = await axios.post("Backend Route", { ingredients });
-      Alert.alert(
-        "Success",
-        "Ingredients passed successfully! Generating recipe..."
-      );
+      const response = await axios.post("http://PUTIPHERE:3000/recipe", {
+        ingredients,
+      });
+      setGptResponse(response.data);
+      Alert("Success", "Ingredients passed successfully! Generating recipe...");
     } catch (error) {
       Alert.alert("Error", "Failed to send over ingredients!");
       console.error(error);
@@ -64,7 +67,7 @@ function Home() {
         <TouchableOpacity onPress={() => setMenuOpen(!menuOpen)}>
           <Icon name="menu" size={30} color="#000" />
         </TouchableOpacity>
-        <Image source={pfp} style={styles.pfp}/>
+        <Image source={pfp} style={styles.pfp} />
       </View>
       {menuOpen && (
         <View style={styles.dropdownContent}>
@@ -78,7 +81,9 @@ function Home() {
         </View>
       )}
       <View style={styles.pane}>
-        <ScrollView style={styles.resultsPane}></ScrollView>
+        <ScrollView style={styles.resultsPane}>
+          <Text>{gptResponse}</Text>
+        </ScrollView>
         <View style={styles.inputPane}>
           <TextInput
             style={styles.input}
@@ -128,7 +133,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 100,
-    backgroundSize: "contain"
+    backgroundSize: "contain",
   },
   pane: {
     flex: 1,
@@ -141,11 +146,13 @@ const styles = StyleSheet.create({
   resultsPane: {
     flex: 1,
     padding: 20,
+
     marginVertical: 10,
   },
   inputPane: {
     width: "100%",
     flexDirection: "row",
+
     justifyContent: "space-between",
     alignItems: "center",
   },
