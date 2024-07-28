@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Button, TextInput, View, Text, Alert } from "react-native";
+import { Button, TextInput, View, Text, Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
 
 function Home() {
   const [input, setInput] = useState("");
@@ -33,7 +32,7 @@ function Home() {
   //Passes ingredients array to backend when "Generate Recipe" button is pressed
   async function passIngredients() {
     try {
-      const response = await axios.prototype("Backend Route", { ingredients });
+      // const response = await axios.prototype("Backend Route", { ingredients });
       Alert("Success", "Ingredients passed successfully! Generating recipe...");
     } catch (error) {
       Alert.alert("Error", "Failed to send over ingredients!");

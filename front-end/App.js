@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LogIn from "./components/LogIn";
 import Register from "./components/Register";
 import Home from "./components/Home";
+import Favorites from "./components/Favorites"
 import { SafeAreaView } from "react-native-safe-area-context";
 const Stack = createNativeStackNavigator();
 

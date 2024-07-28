@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import axios from "axios";
+// import axios from "axios";
 
 
 const LogIn = () => {
@@ -80,7 +80,7 @@ const LogIn = () => {
           </TouchableOpacity>
           <View style={styles.signUp}>
             <Text style={styles.signUpText}>Or</Text>
-            <TouchableOpacity style={styles.signUpButton} onPress>
+            <TouchableOpacity style={styles.signUpButton} onPress ={register}>
             <Text style={styles.signUpButton}>Sign Up</Text>
             </TouchableOpacity>
           </View>
